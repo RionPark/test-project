@@ -14,10 +14,18 @@ import {
 import React, { useState } from "react";
 import EmojiNatureIcon from "@mui/icons-material/EmojiNature";
 import { Mail, Notifications } from "@mui/icons-material";
+import { useToast } from "../contexts/ToastContext";
+import { useAlert } from "../contexts/AlertContext";
 
 export const Navbar = () => {
+  const toast = useToast();
+  const {showAlert }= useAlert();
   const [open, setOpen] = useState(false);
 
+  const showToast = (menu)=>{
+    toast.error(`${menu}는 아직 개발중입니다.`);
+    showAlert('알림',`${menu}는 아직 개발중입니다.`);
+  }
   const StyledToolbar = styled(Toolbar)({
     display: "flex",
     justifyContent: "space-between",
@@ -93,7 +101,7 @@ export const Navbar = () => {
           horizontal: "left",
         }}
       >
-        <MenuItem>Profile</MenuItem>
+        <MenuItem onClick={() => showToast('Profile')}>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>
